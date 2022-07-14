@@ -96,7 +96,7 @@
             <div class="nav-items">
                 <img src="img/home.PNG" class="icon" alt="">
                 <img src="img/messenger.PNG" class="icon" alt="">
-                <img src="img/add.PNG" class="icon" alt="">
+                <a href="delete.php"><img src="img/add.PNG" class="icon" alt=""></a>
                 <img src="img/explore.PNG" class="icon" alt="">
                 <img src="img/like.PNG" class="icon" alt="">
                 <a href="https://www.instagram.com/_anas_figuigui.__._/">

@@ -12,44 +12,53 @@
 <body>
     <?php
 
-    if (isset($_POST['login'])) {
+    if (isset($_POST['signup'])) {
+        $email = $_POST['email'];
+        $fullname = $_POST['fullname'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        if (!empty($username) && !empty($password)) {
+        if (!empty($email) && !empty($fullname) && !empty($username) && !empty($password)) {
             require_once 'include/database.php';
-
-            $sqlState = $pdo->prepare('SELECT * FROM user WHERE username=? AND password=?');
-            $sqlState->execute([$username, $password]);
-            if ($sqlState->rowCount() >= 1) {
-                session_start();
-                $_SESSION['user'] = $sqlState->fetch(PDO::FETCH_ASSOC);
-                echo $_SESSION['user']['username'];
-                header('location: profile.php');
-            } else {
-                echo "incorrect";
-            }
+            $sqlState = $pdo->prepare('INSERT INTO user VALUES(null,?,?,?,?)');
+            $sqlState->execute([$username, $fullname, $email, $password]);
+            header('location:login.php');
         } else {
-            echo "tous les champs sont obligatoire";
+            echo "Tous les champs sont obligatoire !";
         }
     }
     ?>
     <div class="container-p">
-        <img src=".//img/phone.png" alt="">
-
         <div class="container">
             <div class="box">
                 <div class="heading"></div>
-                <form method="POST" class="login-form">
+                <h3 style="text-align: center;color:grey; padding-left:40px;padding-right:40px;"><strong>Sign up to see photos and videos from your friends.</strong></h3>
+                <form method="POST" class="login-form" enctype="multipart/form-data">
+                    <div class="field">
+                        <input id="username" type="email" name="email" placeholder="email" />
+                        <label for="email">email</label>
+                    </div>
+
+                    <div class="field">
+                        <input id="username" type="name" name="fullname" placeholder="Fullname" />
+                        <label for="fullname">Fullname</label>
+                    </div>
+
                     <div class="field">
                         <input id="username" type="name" name="username" placeholder="Phone number, username, or email" />
-                        <label for="username">Phone number, username, or email</label>
+                        <label for="username">Username</label>
                     </div>
+
                     <div class="field">
                         <input id="password" type="password" name="password" placeholder="password" />
                         <label for="password">Password</label>
                     </div>
                     <!-- <input type="submit" value="Login" class="login-button" name="login"> -->
-                    <button class="login-button" title="login" name="login">Log In</button>
+                    <!-- <p class="small">People who use our service may have uploaded your contact information to Instagram. Learn More</p>
+                    <p class="small">By signing up, you agree to our Terms , Data Policy and Cookies Policy .</p> -->
+                    <div class="field">
+                        <input type="file">
+                    </div>
+                    <button class="login-button" title="login" name="signup">Sign Up</button>
                     <div class="separator">
                         <div class="line"></div>
                         <p>OR</p>
@@ -65,7 +74,7 @@
                 </form>
             </div>
             <div class="box">
-                <p>Don't have an account? <a class="signup" href="signUp.php">Sign Up</a></p>
+                <p>Have an account? <a class="signup" href="login.php">Login</a></p>
             </div>
         </div>
     </div>
