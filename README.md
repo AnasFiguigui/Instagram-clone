@@ -1,4 +1,2 @@
 # Instagram-clone
 
-nn
-Instagram
